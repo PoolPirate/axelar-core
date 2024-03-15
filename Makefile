@@ -83,6 +83,10 @@ goimports:
 	@./scripts/rm-blank-lines.sh # remove blank lines from imports
 	@goimports -l -local github.com/axelarnetwork/ . | grep -v .pb.go$ | grep -v .pb.gw.go$ | grep -v mock | grep -v statik.go$ | xargs goimports -local github.com/axelarnetwork/ -w
 
+.PHONY: install
+install: go.sum
+		  go install -mod=readonly $(BUILD_FLAGS) ./cmd/axelard
+
 # Build the project with release flags
 .PHONY: build
 build: go.sum
